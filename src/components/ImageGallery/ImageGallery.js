@@ -13,11 +13,11 @@ import { getImages } from 'service/api';
 export default class ImageGallery extends Component {
   static propTypes = { keyword: PropTypes.string.isRequired };
 
-  state = { images: [], loading: false };
+  state = { images: [], loader: false };
 
   componentDidUpdate(prevProps) {
     if (prevProps.keyword !== this.props.keyword) {
-      this.setState({ images: [], loading: true, showLoadMore: false });
+      this.setState({ images: [], loader: true, showLoadMore: false });
 
       getImages(this.props.keyword, 1)
         .then(r => {
@@ -31,12 +31,12 @@ export default class ImageGallery extends Component {
           this.setState({ images: r.hits });
         })
         .catch(console.log)
-        .then(this.setState({ loading: false }));
+        .then(this.setState({ loader: false }));
     }
   }
 
   onLoadMoreClick = () => {
-    this.setState({ loading: true });
+    this.setState({ loader: true });
 
     const page = this.state.images.length / 12 + 1;
 
@@ -50,11 +50,11 @@ export default class ImageGallery extends Component {
         });
       })
       .catch(console.log)
-      .then(this.setState({ loading: false }));
+      .then(this.setState({ loader: false }));
   };
 
   render() {
-    const { images, loading, showLoadMore } = this.state;
+    const { images, loader, showLoadMore } = this.state;
     return (
       <>
         {images && (
@@ -63,7 +63,7 @@ export default class ImageGallery extends Component {
           </ul>
         )}
 
-        {loading && <Loader />}
+        {loader && <Loader />}
 
         {showLoadMore && <Button onClick={this.onLoadMoreClick} />}
       </>

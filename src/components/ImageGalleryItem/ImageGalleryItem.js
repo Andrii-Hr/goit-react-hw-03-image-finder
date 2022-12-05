@@ -8,7 +8,7 @@ export default class ImageGalleryItem extends Component {
     images: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        webFormatURL: PropTypes.string.isRequired,
+        webformatURL: PropTypes.string.isRequired,
         tags: PropTypes.string.isRequired,
         largeImageURL: PropTypes.string.isRequired,
       })
@@ -44,7 +44,7 @@ export default class ImageGalleryItem extends Component {
             <img
               onClick={this.showModal}
               className={s.galleryItemImg}
-              src={el.webFormatURL}
+              src={el.webformatURL}
               alt={el.tags}
               data-src={el.largeImageURL}
             />
