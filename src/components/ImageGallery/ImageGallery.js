@@ -13,7 +13,7 @@ import { getImages } from 'service/api';
 export default class ImageGallery extends Component {
   static propTypes = { keyword: PropTypes.string.isRequired };
 
-  state = { images: [], loader: false };
+  state = { images: [], loader: false, showLoadMore: false };
 
   componentDidUpdate(prevProps) {
     if (prevProps.keyword !== this.props.keyword) {
@@ -26,12 +26,13 @@ export default class ImageGallery extends Component {
             return;
           }
           if (r.total > 12) {
-            this.setState({ showLoadMore: true });
+            this.setState({ showLoadMore: true, loader: true });
           }
           this.setState({ images: r.hits });
         })
         .catch(console.log)
         .then(this.setState({ loader: false }));
+      console.log(this.state.loader);
     }
   }
 
@@ -50,7 +51,7 @@ export default class ImageGallery extends Component {
         });
       })
       .catch(console.log)
-      .then(this.setState({ loader: false }));
+      .finally(() => this.setState({ loader: false }));
   };
 
   render() {
