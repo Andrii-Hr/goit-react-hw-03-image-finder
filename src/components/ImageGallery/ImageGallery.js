@@ -18,7 +18,7 @@ export default class ImageGallery extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.keyword !== this.props.keyword) {
       this.setState({ images: [], loader: true, showLoadMore: false });
-      console.log(this.state.loader);
+      
 
       getImages(this.props.keyword, 1)
         .then(r => {
@@ -33,7 +33,7 @@ export default class ImageGallery extends Component {
         })
         .catch(console.log)
         .finally(() => this.setState({ loader: false }));
-      console.log(this.state.loader);
+      
     }
   }
 
@@ -53,7 +53,7 @@ export default class ImageGallery extends Component {
       })
       .catch(console.log)
       .finally(() => this.setState({ loader: false }));
-    console.log(this.state.loader);
+    
   };
 
   render() {
